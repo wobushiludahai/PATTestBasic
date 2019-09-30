@@ -14,9 +14,10 @@ int testbuf1[100];
 int testbuf2[100];
 int testInsertbuf[100];
 int testMergebuf[100];
+int MergeResultbuf[100] = {0};
 int testcount = 0;
 
-void InsertSort(void)
+int InsertSort(void)
 {
     int temp = testInsertbuf[testcount + 1];
 
@@ -33,12 +34,23 @@ void InsertSort(void)
         }
     }
 
-    for (int i = 0; i < testnum; i++)
+    temp = 0;
+    while(temp < testnum)
     {
-        printf("%d ",testInsertbuf[i]);
+        if(testInsertbuf[temp] != testbuf2[temp])
+        {
+            break;
+        }
+        temp++;
     }
-    printf("\n");
+    if(temp == testnum)
+    {
+        printf("Insertion Sort\n");
+        return 1;
+    }
+    return 0;
 }
+
 //用于归并排序数组合并
 void Merge(int *Merge1, int len1, int *Merge2, int len2, int *Mergedest)
 {
@@ -47,7 +59,7 @@ void Merge(int *Merge1, int len1, int *Merge2, int len2, int *Mergedest)
 
     while ((templen1 < len1)&&(templen2 < len2))
     {
-        if(Merge1[templen] < Merge2[templen])
+        if(Merge1[templen1] < Merge2[templen2])
         {
             Mergedest[templen++] = Merge1[templen1++];
         }
@@ -68,11 +80,10 @@ void Merge(int *Merge1, int len1, int *Merge2, int len2, int *Mergedest)
     }
 }
 
-void MergeSort(void)
+int MergeSort(void)
 {
-    int MergeResultbuf[100] = {0};
     int count = 0;
-    int temp = (int)pow(2, 0);
+    int temp = (int)pow(2, testcount);
 
     while(1)
     {
@@ -91,98 +102,24 @@ void MergeSort(void)
 
     for (int i = 0; i < testnum; i++)
     {
-        printf("%d ",MergeResultbuf[i]);
-    }
-    printf("\n");
-    temp = testnum;
-    count = 0;
-    while (temp)
-    {
-        testMergebuf[count] = MergeResultbuf[count];
-        temp--;
-    }
-    printf("\nMergebuf: \n");
-     for (int i = 0; i < testnum; i++)
-    {
-        printf("%d ",testMergebuf[i]);
+        testMergebuf[i] = MergeResultbuf[i];
     }
 
-    temp = (int)pow(2, 1);
-    printf("\ntemp = %d\n",temp);
-    count = 0;
-
-    while(1)
+    temp = 0;
+    while(temp < testnum)
     {
-        if((count + temp) >= testnum)
+        if(testMergebuf[temp] != testbuf2[temp])
         {
             break;
         }
-        if(count + (temp<<1) >= testnum)
-        {
-            Merge(&testMergebuf[count],temp,&testMergebuf[count + temp],(testnum - count - temp),&MergeResultbuf[count]);
-            break;
-        }
-        Merge(&testMergebuf[count],temp,&testMergebuf[count + temp], temp, &MergeResultbuf[count]);
-        count+=(temp<<1);
+        temp++;
     }
-
-    for (int i = 0; i < testnum; i++)
+    if(temp == testnum)
     {
-        printf("%d ",MergeResultbuf[i]);
+        printf("Insertion Sort\n");
+        return 1;
     }
-    printf("\n");
-    temp = testnum;
-    count = 0;
-    while (temp)
-    {
-        testMergebuf[count] = MergeResultbuf[count];
-        temp--;
-    }
-    printf("\nMergebuf: \n");
-     for (int i = 0; i < testnum; i++)
-    {
-        printf("%d ",testMergebuf[i]);
-    }
-
-    
-    temp = (int)pow(2, 2);
-    printf("\ntemp = %d\n",temp);
-    count = 0;
-
-    while(1)
-    {
-        if((count + temp) >= testnum)
-        {
-            break;
-        }
-        if(count + (temp<<1) >= testnum)
-        {
-            Merge(&testMergebuf[count],temp,&testMergebuf[count + temp],(testnum - count - temp),&MergeResultbuf[count]);
-            break;
-        }
-        Merge(&testMergebuf[count],temp,&testMergebuf[count + temp], temp, &MergeResultbuf[count]);
-        count+=(temp<<1);
-    }
-
-    for (int i = 0; i < testnum; i++)
-    {
-        printf("%d ",MergeResultbuf[i]);
-    }
-    printf("\n");
-    temp = testnum;
-    count = 0;
-    while (temp)
-    {
-        testMergebuf[count] = MergeResultbuf[count];
-        temp--;
-    }
-    printf("\nMergebuf: \n");
-     for (int i = 0; i < testnum; i++)
-    {
-        printf("%d ",testMergebuf[i]);
-    }
-
-
+    return 0;
 }
 
 int main(void)
@@ -196,20 +133,14 @@ int main(void)
         testMergebuf[i] = testbuf1[i];
     }
 
-    // for(int i = 0; i < testnum; i++)
-    // {
-        MergeSort();
-        // testcount++;
-    // }
-        // MergeSort();
-        // testcount++;
-        
-        // MergeSort();
-        // testcount++;
-    // for(int i = 0; i < testnum; i++)
-    // {
-    //     scanf("%d",&testbuf2[i]);
-    // }
+    for(int i = 0; i < testnum; i++)
+    {
+        scanf("%d",&testbuf2[i]);
+    }
+
+    //while(MergeSort() == 0) testcount++;
+    while(InsertSort() == 0) testcount++;
+    printf("\n测试结束\n");
 
     return 0;
 }
