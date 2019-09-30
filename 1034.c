@@ -2,7 +2,7 @@
 #include<string.h>
 #include <stdlib.h>
 
-long gcd(long a,long b)
+long long gcd(long long a,long long b)
 {
     if(a%b==0)
     return b;
@@ -10,10 +10,10 @@ long gcd(long a,long b)
     return gcd(b,a%b);
 }
 
-void display(long a, long b)
+void display(long long a, long long b)
 {
-    long temp;
-    long tempa = a,tempb = b;
+    long long temp;
+    long long tempa = a,tempb = b;
 
     if(a == 0)
     {
@@ -35,15 +35,15 @@ void display(long a, long b)
 
         if((tempa/tempb > 0)&&(tempa%tempb !=0))
         {
-            printf("(-%d %d/%d)",(tempa/tempb),(tempa%tempb),(tempb));
+            printf("(-%lld %lld/%lld)",(tempa/tempb),(tempa%tempb),(tempb));
         }
         else if((tempa/tempb > 0)&&(tempa%tempb == 0))
         {
-            printf("(-%d)",(tempa/tempb));
+            printf("(-%lld)",(tempa/tempb));
         }
         else
         {
-            printf("(-%d/%d)",(tempa%tempb),(tempb));
+            printf("(-%lld/%lld)",(tempa%tempb),(tempb));
         }
     }
     else
@@ -57,25 +57,25 @@ void display(long a, long b)
 
         if((tempa/tempb > 0)&&(tempa%tempb !=0))
         {
-            printf("%d %d/%d",(tempa/tempb),(tempa%tempb),(tempb));
+            printf("%lld %lld/%lld",(tempa/tempb),(tempa%tempb),(tempb));
         }
         else if((tempa/tempb > 0)&&(tempa%tempb == 0))
         {
-            printf("%d",(tempa/tempb));
+            printf("%lld",(tempa/tempb));
         }
         else
         {
-            printf("%d/%d",(tempa%tempb),(tempb));
+            printf("%lld/%lld",(tempa%tempb),(tempb));
         }
     }
 }
 
 int main(void)
 {
-    long testnum1,testnum2,testnum3,testnum4;
-    long testtemp1,testtemp2,testtemp;
+    long long testnum1,testnum2,testnum3,testnum4;
+    long long testtemp1,testtemp2,testtemp;
 
-    scanf("%d/%d %d/%d",&testnum1,&testnum2,&testnum3,&testnum4);
+    scanf("%lld/%lld %lld/%lld",&testnum1,&testnum2,&testnum3,&testnum4);
 
     testtemp1 = testnum1*testnum4 + testnum2*testnum3;
     testtemp2 = testnum2*testnum4;
