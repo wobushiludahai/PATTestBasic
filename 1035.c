@@ -1,9 +1,7 @@
-/*
- * @Description: In User Settings Edi
- * @Author: your name
- * @Date: 2019-09-30 11:48:13
- * @LastEditTime: 2019-09-30 17:37:41
- * @LastEditors: Please set LastEditors
+/**
+ * @description: 插入与归并
+ * @param {type} 
+ * @return: 
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,8 +14,9 @@ int testInsertbuf[100];
 int testMergebuf[100];
 int MergeResultbuf[100] = {0};
 int testcount = 0;
-
-int InsertSort(void)
+int testMergeflag = 0;
+int testflag = 0;
+void InsertSortFresh(void)
 {
     int temp = testInsertbuf[testcount + 1];
 
@@ -33,8 +32,12 @@ int InsertSort(void)
             break;
         }
     }
+}
 
-    temp = 0;
+int InsertSort(void)
+{
+    int temp = 0;
+    InsertSortFresh();
     while(temp < testnum)
     {
         if(testInsertbuf[temp] != testbuf2[temp])
@@ -46,6 +49,13 @@ int InsertSort(void)
     if(temp == testnum)
     {
         printf("Insertion Sort\n");
+        testcount++;
+        InsertSortFresh();
+        for(int i = 0; i < (testnum - 1); i++)
+        {
+            printf("%d ",testInsertbuf[i]);
+        }
+        printf("%d",testInsertbuf[testnum - 1]);
         return 1;
     }
     return 0;
@@ -80,10 +90,15 @@ void Merge(int *Merge1, int len1, int *Merge2, int len2, int *Mergedest)
     }
 }
 
-int MergeSort(void)
+void MergeSortFlesh(void)
 {
     int count = 0;
     int temp = (int)pow(2, testcount);
+
+    if((temp<<1) > testnum)
+    {
+        testMergeflag = 1;
+    }
 
     while(1)
     {
@@ -104,8 +119,12 @@ int MergeSort(void)
     {
         testMergebuf[i] = MergeResultbuf[i];
     }
+}
 
-    temp = 0;
+int MergeSort(void)
+{
+    int temp = 0;
+    MergeSortFlesh();
     while(temp < testnum)
     {
         if(testMergebuf[temp] != testbuf2[temp])
@@ -116,7 +135,15 @@ int MergeSort(void)
     }
     if(temp == testnum)
     {
-        printf("Insertion Sort\n");
+        printf("Merge Sort\n");
+        testcount++;
+        MergeSortFlesh();
+        for(int i = 0; i < (testnum - 1); i++)
+        {
+            printf("%d ",testMergebuf[i]);
+        }
+        printf("%d",testMergebuf[testnum - 1]);
+        testflag = 1;
         return 1;
     }
     return 0;
@@ -138,9 +165,13 @@ int main(void)
         scanf("%d",&testbuf2[i]);
     }
 
-    //while(MergeSort() == 0) testcount++;
-    while(InsertSort() == 0) testcount++;
-    printf("\n测试结束\n");
+    while((MergeSort() == 0)&&(testMergeflag == 0)) testcount++;
+    if(testflag == 0)
+    {
+        testcount = 0;
+        while(InsertSort() == 0) testcount++;
+    }
+    // printf("\n测试结束\n");
 
     return 0;
 }
