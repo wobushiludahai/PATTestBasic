@@ -1,5 +1,5 @@
 /**
- * @description: 1050  螺旋矩阵  注意判断实部虚部是否大于0.01
+ * @description: 1051  复数乘法  注意判断实部虚部是否大于0.01
  * @param {type} 
  * @return: 
  */
