@@ -1,3 +1,8 @@
+/**
+ * @description: 1066 图像过滤  注意i和j别搞混
+ * @param {type} 
+ * @return: 
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
